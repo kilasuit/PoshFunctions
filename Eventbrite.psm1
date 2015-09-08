@@ -115,3 +115,13 @@ $event.end = (([DateTime]($event.end.local)).ToUniversalTime())
 
 $global:myevents += $event
 }
+
+function Get-EventbriteEventQuestions
+{
+param (
+    [Parameter(Mandatory=$true)][string]$EventbrightToken,
+    [Parameter(Mandatory=$true)][string]$EventID
+        )
+$Global:questions = (Invoke-WebRequest https://www.eventbriteapi.com/v3/events/$eventid/questions/?token=$EventbrightToken | ConvertFrom-Json).questions
+
+}
