@@ -1,4 +1,4 @@
-﻿Function Connect-MyEXOSession {
+﻿Function Connect-EXOSession {
 param (
     [Parameter(Mandatory=$true)][PSCredential]$EXOCredential
     )
