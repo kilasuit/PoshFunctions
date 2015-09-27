@@ -24,7 +24,7 @@ param (
 
 Get-EventbriteEvents -EventbrightToken $EventbrightToken
 $iemail = Import-Clixml -Path $existingXML
-Connect-MyEXOSession -EXOCredential $EXOcredential # Custom Function for Connecting to EXO PSSession
+Connect-EXOSession -EXOCredential $EXOcredential # Custom Function for Connecting to EXO PSSession
 
 $emails = New-Object System.Collections.Arraylist
 foreach ($event in $events.events)
