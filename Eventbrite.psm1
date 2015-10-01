@@ -12,7 +12,7 @@ $O365Session = New-PSSession -ConfigurationName Microsoft.Exchange `
 }
 
 
-function Set-GroupDistributionList
+function Set-EVGroupDistributionList
 {
 
 param (
