@@ -1,10 +1,4 @@
 ﻿function Install-PowerShellPackageManagement {
-param
-     (
-     [Parameter(Mandatory=$true, Position=1)]
-	 [ValidateSet('x86','x64')]
-     [String] $Version
-     )
 
 $x86 = 'https://download.microsoft.com/download/4/1/A/41A369FA-AA36-4EE9-845B-20BCC1691FC5/PackageManagement_x86.msi'
 $x64 = 'https://download.microsoft.com/download/4/1/A/41A369FA-AA36-4EE9-845B-20BCC1691FC5/PackageManagement_x64.msi'
