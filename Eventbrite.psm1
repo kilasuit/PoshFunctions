@@ -1,4 +1,4 @@
-﻿Function Connect-MyEXOSession {
+﻿Function Connect-EXOSession {
 param (
     [Parameter(Mandatory=$true)][PSCredential]$EXOCredential
     )
@@ -8,11 +8,11 @@ $O365Session = New-PSSession -ConfigurationName Microsoft.Exchange `
 			-ConnectionUri "https://ps.outlook.com/powershell" -Credential $EXOCredential `
 			-Authentication Basic -AllowRedirection -WarningAction SilentlyContinue -Name EXOSession
 			#If session is newly created, import the session.
-			Import-PSSession -Session $O365Session -Verbose:$false -DisableNameChecking -AllowClobber | Out-Null
+			$global:exosession = Import-PSSession -Session $O365Session -Verbose:$false -DisableNameChecking -AllowClobber | Out-Null
 }
 
 
-function Set-GroupDistributionList
+function Set-EVGroupDistributionList
 {
 
 param (
@@ -24,7 +24,7 @@ param (
 
 Get-EventbriteEvents -EventbrightToken $EventbrightToken
 $iemail = Import-Clixml -Path $existingXML
-Connect-MyEXOSession -EXOCredential $EXOcredential # Custom Function for Connecting to EXO PSSession
+Connect-EXOSession -EXOCredential $EXOcredential # Custom Function for Connecting to EXO PSSession
 
 $emails = New-Object System.Collections.Arraylist
 foreach ($event in $events.events)
@@ -114,4 +114,14 @@ $event.start = (([DateTime]($event.start.local)).ToUniversalTime())
 $event.end = (([DateTime]($event.end.local)).ToUniversalTime())
 
 $global:myevents += $event
+}
+
+function Get-EventbriteEventQuestions
+{
+param (
+    [Parameter(Mandatory=$true)][string]$EventbrightToken,
+    [Parameter(Mandatory=$true)][string]$EventID
+        )
+$Global:questions = (Invoke-WebRequest https://www.eventbriteapi.com/v3/events/$eventid/questions/?token=$EventbrightToken | ConvertFrom-Json).questions
+
 }
