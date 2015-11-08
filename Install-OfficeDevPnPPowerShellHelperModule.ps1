@@ -26,7 +26,7 @@ param (
             'v15' { $moduleVersion = 'SharePoint On-Premises'}
             'v16' { $moduleVersion = 'SharePoint Online'}
            }
-        Write-Output "The modules for $ModuleToInstall have been installed and can now be used"
+        Write-Output "The modules for $moduleVersion have been installed and can now be used"
         Write-Output 'On the next release you can just run Update-Module -force to update this and other installed modules'
 }
 
