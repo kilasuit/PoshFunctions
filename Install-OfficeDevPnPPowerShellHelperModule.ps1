@@ -1,5 +1,4 @@
-﻿
-Function Install-Office365DevPNPModules {
+﻿Function Install-Office365DevPNPModules {
 <#
 .Synopsis
    This Function will Check and see if the Office365DevPNP PowerShellModules are installed on your system and if not will use PowerShell Package Management to install them
@@ -51,14 +50,16 @@ function Request-SPOOrOnPremises
 
 if ((Get-command -Module PowerShellGet).count -gt 0) 
     { 
-    Write-Output 'PowerShellPackageManagement now installed we can now run the next command' ; 
-    $run = $true
+    Write-Output 'PowerShellPackageManagement now installed we will now run the next command in 10 Seconds'
+    Start-Sleep -Seconds 10 
+    Install-Office365DevPNPModules -ModuleToInstall (Request-SPOOrOnPremises)
     }
     else
         {
-        $run = false
+        Write-Output "PowerShellPackageManagement is not installed on this Machine - Please run the below to install - you will need to Copy and Paste it as i'm not doing everything for you ;-)"
+        Write-Output "Invoke-Expression (New-Object Net.WebClient).DownloadString('http://bit.ly/PSPackManInstall')"
         }
 if ($run -eq $true) 
     {
-    Install-Office365DevPNPModules -ModuleToInstall (Request-SPOOrOnPremises)
+    
     }
