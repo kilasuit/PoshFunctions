@@ -32,8 +32,8 @@ Param (
     [PSCredential]$EXOCredential
       )
 $repos =@()
-$web = Invoke-RestMethod -Uri "https://api.github.com/users/$githubuser/repos" 
-$web | ForEach-Object { $repos += $_.name }
+$web = Invoke-WebRequest -Uri "https://api.github.com/users/$githubuser/subscriptions" 
+$web | ConvertFrom-Json | ForEach-Object { $repos += $_.name }
 if ($web.Headers.Keys.Contains('Link'))
 {
     $LastLink = $web.Headers.Link.Split(',')[1].replace('<','').replace('>','').replace(' ','').replace('rel="last"','').replace(';','')
@@ -41,7 +41,7 @@ if ($web.Headers.Keys.Contains('Link'))
     $pages = 2..$last
     foreach ($page in $pages)
         {
-        Invoke-RestMethod -Uri "https://api.github.com/users/$githubuser/subscriptions?page=$page" | ForEach-Object { $repos += $_.name }
+        Invoke-WebRequest -Uri "https://api.github.com/users/$githubuser/subscriptions?page=$page" | ConvertFrom-Json | ForEach-Object { $repos += $_.name }
         }
 }
 $repos = $repos | Sort-Object -Unique
