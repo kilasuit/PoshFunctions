@@ -61,7 +61,7 @@ if ($Versionarray[0] -eq 6) {
         "Windows 7 32Bit"     {$link = "http://go.microsoft.com/fwlink/?LinkID=717962"}
     }
 
-    if(($version -eq 'Windows 2008R2' -or 'Windows 7 64Bit' -or 'Windows 7 32Bit') -and (Test-path $env:TEMP\WMF4Installed.txt) -eq $false )
+    if(($version -eq ('Windows 2008R2' -or 'Windows 7 64Bit' -or 'Windows 7 32Bit')) -and ((Test-path $env:TEMP\WMF4Installed.txt) -eq $false) )
    
     {
     Write-Warning 'Please use the Install WMF4 Script first'
