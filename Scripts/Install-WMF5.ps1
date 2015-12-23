@@ -81,14 +81,15 @@ if ($Versionarray[0] -eq 6) {
     $WC = New-Object System.Net.WebClient
     $WC.DownloadFile($link,"$env:TEMP\$Filename")
     $WC.Dispose()
-
+    Write-Verbose 'We are Installing WMF5 silently for you'
     Set-Location $env:Temp
     & .\$Filename /quiet
 
     Start-Sleep 80
     Remove-Item "$env:TEMP\$Filename"
     if(Test-path $env:TEMP\WMF4Installed.txt) {Remove-Item $env:Temp\installedWMF4.txt}
-
+    Write-Verbose 'We need to Reboot after install of WMF4 - you can now proceed to install WMF5'
+    Start-Sleep 5
     shutdown /r /t 1
     }
 }
