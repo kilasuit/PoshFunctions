@@ -1,18 +1,4 @@
-﻿Function Connect-EXOSession {
-param (
-    [Parameter(Mandatory=$true)][PSCredential]$EXOCredential
-    )
-
-
-$O365Session = New-PSSession -ConfigurationName Microsoft.Exchange `
-			-ConnectionUri "https://ps.outlook.com/powershell" -Credential $EXOCredential `
-			-Authentication Basic -AllowRedirection -WarningAction SilentlyContinue -Name EXOSession
-			#If session is newly created, import the session.
-			$global:exosession = Import-PSSession -Session $O365Session -Verbose:$false -DisableNameChecking -AllowClobber | Out-Null
-}
-
-
-function Set-EVGroupDistributionList
+﻿function Set-EVGroupDistributionList
 {
 
 param (
@@ -45,7 +31,7 @@ foreach ($event in $events.events)
                   {
                     if ($pscustom.Orders.Id -contains $attendee.order_id)
                       {
-                        $details = $pscustom.Orders | Where-Object {$_.Id -eq $attendee.order_id} | Select name,first_name,last_name,email
+                        $details = $pscustom.Orders | Where-Object {$_.Id -eq $attendee.order_id} | Select-Object name,first_name,last_name,email
                         $emails.add($details)
                       }
 
