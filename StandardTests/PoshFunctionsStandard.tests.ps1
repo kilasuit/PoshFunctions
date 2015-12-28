@@ -81,3 +81,54 @@ Describe "Testing all Modules in this Repo to be be correctly formatted" {
  }
 }
 
+Describe "Testing all Scripts in this Repo to be be correctly formatted" {
+
+    foreach($Script in $Scripts)
+    {
+
+    Context "Testing Script  - $($Script.BaseName) for Standard Processing" {
+    
+          It "Is valid Powershell (Has no script errors)" {
+
+                $contents = Get-Content -Path $script.FullName -ErrorAction Stop
+                $errors = $null
+                $null = [System.Management.Automation.PSParser]::Tokenize($contents, [ref]$errors)
+                $errors.Count | Should Be 0
+            }
+            
+     It 'passes the PSScriptAnalyzer without Errors' {
+        (Invoke-ScriptAnalyzer -Path $script.PSParentPath -Severity Error).Count | Should Be 0
+    }
+
+     It 'passes the PSScriptAnalyzer with less than 10 Warnings excluding PSUseShouldProcessForStateChangingFunctions Rule as it is currently Pants!' {
+        (Invoke-ScriptAnalyzer -Path $script.PSParentPath -Severity Warning -ExcludeRule PSUseShouldProcessForStateChangingFunctions).Count | Should BeLessThan 10 
+    }
+
+    It "Has show-help comment block" {
+
+                $script.FullName | should contain '<#'
+                $script.FullName | should contain '#>'
+            }
+
+            It "Has show-help comment block has a synopsis" {
+
+                $script.FullName | should contain '\.SYNOPSIS'
+            }
+
+            It "Has show-help comment block has an example" {
+
+                $script.FullName | should contain '\.EXAMPLE'
+            }
+
+            It "Is an advanced function" {
+
+                $script.FullName | should contain 'function'
+                $script.FullName | should contain 'cmdletbinding'
+                $script.FullName | should contain 'param'
+            }
+            }
+
+        }
+    }
+ 
+

@@ -21,7 +21,7 @@ function Get-ExchangedCurrency{
    
    Returns the $USD amount for £7
 #>
-
+[cmdletbinding()]
 param (
     [Parameter(Mandatory=$true)]
     [ValidateSet("SGD","EUR", "USD")]
