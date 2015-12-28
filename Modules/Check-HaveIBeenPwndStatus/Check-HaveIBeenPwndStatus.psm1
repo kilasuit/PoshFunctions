@@ -1,4 +1,12 @@
 ﻿Function Check-HaveIBeenPwndStatus {
+<#
+.Synopsis
+   This Function will Check and see if your Email Account has recently been marked as being at risk of any breaches as detailed on https://haveibeenpwned.com/
+.DESCRIPTION
+   This uses Invoke-RestMethod to check if the account passed to it has been breached
+.EXAMPLE
+   Check-HaveIBeenPwndStatus -Account me@abc.co.uk
+   #>
 [CmdletBinding()]
 	param
 	(

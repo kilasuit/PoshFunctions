@@ -10,7 +10,8 @@ function Install-PowerShellPackageManagement {
    #>
 
 #Requires -Version 3.0
-
+[Cmdletbinding()]
+param()
 
 if (!(Get-command -Module PowerShellGet).count -gt 0)
     {

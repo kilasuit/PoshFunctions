@@ -1,14 +1,21 @@
-﻿function Set-EVGroupDistributionList
-{
-
+﻿function Set-EVGroupDistributionList {
+<#
+.Synopsis
+   This Function will Set users in a Distribution Group in Exchange Online based on the Orders placed in Eventbrite
+.DESCRIPTION
+   To be completed
+.EXAMPLE
+   Set-EVGroupDistributionList -ExistingXML C:\xml\EVGroup.xml -EventbrightToken $env:EventBriteToken -DistributionList MyEventBriteList -EXOCredential $MyEXOCredential
+   #>
+[cmdletbinding()]
 param (
     [Parameter(Mandatory=$true)][string]$ExistingXML,
-    [Parameter(Mandatory=$true)][string]$EventbrightToken,
+    [Parameter(Mandatory=$true)][string]$EventbriteToken,
     [Parameter(Mandatory=$true)][string]$distributionList,
     [Parameter(Mandatory=$true)][PSCredential]$EXOcredential
     )
 
-Get-EventbriteEvents -EventbrightToken $EventbrightToken
+Get-EventbriteEvents -EventbrightToken $EventbriteToken
 $iemail = Import-Clixml -Path $existingXML
 Connect-EXOSession -EXOCredential $EXOcredential # Custom Function for Connecting to EXO PSSession
 
@@ -17,8 +24,8 @@ foreach ($event in $events.events)
     {
     $eventid = $event.id
  
-    $Attendees = Invoke-WebRequest -Uri https://www.eventbriteapi.com/v3/events/$eventID/attendees/?token=$EventbrightToken | ConvertFrom-Json
-    $Orders = Invoke-WebRequest -Uri https://www.eventbriteapi.com/v3/events/$eventID/orders/?token=$EventbrightToken | ConvertFrom-Json
+    $Attendees = Invoke-WebRequest -Uri https://www.eventbriteapi.com/v3/events/$eventID/attendees/?token=$EventbriteToken | ConvertFrom-Json
+    $Orders = Invoke-WebRequest -Uri https://www.eventbriteapi.com/v3/events/$eventID/orders/?token=$EventbriteToken | ConvertFrom-Json
 
     
     $pscustom = [PSCustomObject]@{Attendees = $Attendees.attendees ; Orders = $Orders.orders}
@@ -54,13 +61,21 @@ foreach ($event in $events.events)
     Remove-PSSession -Name EXOSession
 }
 
-function Get-EventbriteEvents
-{
+function Get-EventbriteEvents {
+<#
+.Synopsis
+   This Function will Get all EventBrite Events 
+.DESCRIPTION
+   To be completed
+.EXAMPLE
+   Get-EventbriteEvents -EventbrightToken $env:EventBriteToken 
+   #>
+[cmdletbinding()]
 param (
-[Parameter(Mandatory=$true)][string]$EventbrightToken
+[Parameter(Mandatory=$true)][string]$EventbriteToken
 
         )
-$Global:Events = Invoke-WebRequest https://www.eventbriteapi.com/v3/users/me/owned_events/?token=$EventbrightToken | ConvertFrom-Json
+$Global:Events = Invoke-WebRequest https://www.eventbriteapi.com/v3/users/me/owned_events/?token=$EventbriteToken | ConvertFrom-Json
 
 Foreach ($event in $events.events ) 
 {
@@ -70,30 +85,46 @@ $event.end = (([DateTime]($event.end.local)).ToUniversalTime())
 }
 }
 
-function get-eventbriteOrders
-{
+function Get-EventbriteOrders {
+<#
+.Synopsis
+   This Function will Get all EventBrite Orders 
+.DESCRIPTION
+   To be completed
+.EXAMPLE
+   Get-EventbriteOrders -EventbrightToken $env:EventBriteToken 
+   #>
+[cmdletbinding()]
 param (
-[Parameter(Mandatory=$true)][string]$EventbrightToken
+[Parameter(Mandatory=$true)][string]$EventbriteToken
 
         )
-$global:orders = Invoke-WebRequest https://www.eventbriteapi.com/v3/users/me/orders/?token=$EventbrightToken | ConvertFrom-Json
+$global:orders = Invoke-WebRequest https://www.eventbriteapi.com/v3/users/me/orders/?token=$EventbriteToken | ConvertFrom-Json
 
 $global:Myevents =@()
 
 foreach ($order in $orders.orders) {
-    Get-EventbriteEvent -EventbrightToken $EventbrightToken -EventID $order.event_id
+    Get-EventbriteEvent -EventbrightToken $EventbriteToken -EventID $order.event_id
     }
 
 }
 
 
-function Get-EventbriteEvent
-{
+function Get-EventbriteEvent {
+<#
+.Synopsis
+   This Function will Get a specific EventBrite Event 
+.DESCRIPTION
+   To be completed
+.EXAMPLE
+   Get-EventbriteEvent -EventbrightToken $env:EventBriteToken -EventID 1234376727438
+   #>
+[cmdletbinding()]
 param (
-    [Parameter(Mandatory=$true)][string]$EventbrightToken,
+    [Parameter(Mandatory=$true)][string]$EventbriteToken,
     [Parameter(Mandatory=$true)][string]$EventID
         )
-$Global:Event = Invoke-WebRequest https://www.eventbriteapi.com/v3/events/$eventid/?token=$EventbrightToken | ConvertFrom-Json
+$Global:Event = Invoke-WebRequest https://www.eventbriteapi.com/v3/events/$eventid/?token=$EventbriteToken | ConvertFrom-Json
 
 $event.Name = $event.Name.Text
 $event.start = (([DateTime]($event.start.local)).ToUniversalTime())
@@ -102,12 +133,20 @@ $event.end = (([DateTime]($event.end.local)).ToUniversalTime())
 $global:myevents += $event
 }
 
-function Get-EventbriteEventQuestions
-{
+function Get-EventbriteEventQuestions {
+<#
+.Synopsis
+   This Function will Get all Questions from a specificed EventBrite Event
+.DESCRIPTION
+   To be completed
+.EXAMPLE
+   Get-EventbriteEventQuestions -EventbrightToken $env:EventBriteToken -EventID 1232786423
+   #>
+[cmdletbinding()]
 param (
-    [Parameter(Mandatory=$true)][string]$EventbrightToken,
+    [Parameter(Mandatory=$true)][string]$EventbriteToken,
     [Parameter(Mandatory=$true)][string]$EventID
         )
-$Global:questions = (Invoke-WebRequest https://www.eventbriteapi.com/v3/events/$eventid/questions/?token=$EventbrightToken | ConvertFrom-Json).questions
+$Global:questions = (Invoke-WebRequest https://www.eventbriteapi.com/v3/events/$eventid/questions/?token=$EventbriteToken | ConvertFrom-Json).questions
 
 }

@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-results xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="nunit_schema_2.5.xsd" name="Pester" total="76" errors="0" failures="18" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2015-12-28" time="06:17:29">
+  <environment user="Ryan" machine-name="LENOVO-8" cwd="GitHub:\PoshFunctions" user-domain="LENOVO-8" platform="Microsoft Windows 10 Pro Insider Preview|C:\WINDOWS|\Device\Harddisk0\Partition5" nunit-version="2.5.8.0" os-version="10.0.11082" clr-version="4.0.30319.42000" />
+  <culture-info current-culture="en-GB" current-uiculture="en-US" />
+  <test-suite type="Powershell" name="Pester" executed="True" result="Failure" success="False" time="7.1764" asserts="0">
+    <results>
+      <test-suite type="TestFixture" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted" executed="True" result="Failure" success="False" time="7.1764" asserts="0" description="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted">
+        <results>
+          <test-case description="Is valid Powershell (Has no script errors)" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Is valid Powershell (Has no script errors)" executed="True" time="0.1819" asserts="0" success="True" result="Success" />
+          <test-case description="Has a root module file (.psm1)" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Has a root module file (.psm1)" executed="True" time="0.023" asserts="0" success="True" result="Success" />
+          <test-case description="Is valid PowerShell" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Is valid PowerShell" executed="True" time="0.013" asserts="0" success="True" result="Success" />
+          <test-case description="passes the PSScriptAnalyzer without Errors" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.passes the PSScriptAnalyzer without Errors" executed="True" time="0.2455" asserts="0" success="True" result="Success" />
+          <test-case description="passes the PSScriptAnalyzer with less than 10 Warnings" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.passes the PSScriptAnalyzer with less than 10 Warnings" executed="True" time="0.2564" asserts="0" success="True" result="Success" />
+          <test-case description="Has a manifest file (Check-HaveIBeenPwndStatus.psd1)" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Has a manifest file (Check-HaveIBeenPwndStatus.psd1)" executed="True" time="0.0295" asserts="0" success="True" result="Success" />
+          <test-case description="Contains a root module path in the manifest" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Contains a root module path in the manifest" executed="True" time="0.0138" asserts="0" success="True" result="Success" />
+          <test-case description="Contains all needed properties in the Manifest for PSGallery Uploads" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Contains all needed properties in the Manifest for PSGallery Uploads" executed="True" time="0.0193" asserts="0" success="True" result="Success" />
+          <test-case description="Function Check-HaveIBeenPwndStatus Has show-help comment block" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Check-HaveIBeenPwndStatus Has show-help comment block" executed="True" time="0.2668" asserts="0" success="False" result="Failure">
+            <failure>
+              <message>Expected: {True}
+But was:  {False}</message>
+              <stack-trace>at line: 65 in C:\Users\Ryan\Onedrive\Github\PoshFunctions\StandardTests\PoshFunctionsStandard.tests.ps1
+65:                 $modulefunction.Definition.Contains('&lt;#') | should be 'True'
+</stack-trace>
+            </failure>
+          </test-case>
+          <test-case description="Function Check-HaveIBeenPwndStatus Has show-help comment block has a.SYNOPSIS" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Check-HaveIBeenPwndStatus Has show-help comment block has a.SYNOPSIS" executed="True" time="0.0182" asserts="0" success="False" result="Failure">
+            <failure>
+              <message>Expected: {True}
+But was:  {False}</message>
+              <stack-trace>at line: 71 in C:\Users\Ryan\Onedrive\Github\PoshFunctions\StandardTests\PoshFunctionsStandard.tests.ps1
+71:                 $modulefunction.Definition.Contains('.SYNOPSIS') -or $modulefunction.Definition.Contains('.Synopsis') | should be 'True'
+</stack-trace>
+            </failure>
+          </test-case>
+          <test-case description="Function Check-HaveIBeenPwndStatus Has show-help comment block has an example" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Check-HaveIBeenPwndStatus Has show-help comment block has an example" executed="True" time="0.0335" asserts="0" success="False" result="Failure">
+            <failure>
+              <message>Expected: {True}
+But was:  {False}</message>
+              <stack-trace>at line: 78 in C:\Users\Ryan\Onedrive\Github\PoshFunctions\StandardTests\PoshFunctionsStandard.tests.ps1
+78:                 $modulefunction.Definition.Contains('.EXAMPLE') | should be 'True'
+</stack-trace>
+            </failure>
+          </test-case>
+          <test-case description="Function Check-HaveIBeenPwndStatus Is an advanced function" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Check-HaveIBeenPwndStatus Is an advanced function" executed="True" time="0.015" asserts="0" success="True" result="Success" />
+          <test-case description="Is valid Powershell (Has no script errors)" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Is valid Powershell (Has no script errors)" executed="True" time="0.1116" asserts="0" success="True" result="Success" />
+          <test-case description="Has a root module file (.psm1)" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Has a root module file (.psm1)" executed="True" time="0.0108" asserts="0" success="True" result="Success" />
+          <test-case description="Is valid PowerShell" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Is valid PowerShell" executed="True" time="0.0142" asserts="0" success="True" result="Success" />
+          <test-case description="passes the PSScriptAnalyzer without Errors" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.passes the PSScriptAnalyzer without Errors" executed="True" time="0.2567" asserts="0" success="True" result="Success" />
+          <test-case description="passes the PSScriptAnalyzer with less than 10 Warnings" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.passes the PSScriptAnalyzer with less than 10 Warnings" executed="True" time="0.257" asserts="0" success="True" result="Success" />
+          <test-case description="Has a manifest file (Connect-EXOSession.psd1)" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Has a manifest file (Connect-EXOSession.psd1)" executed="True" time="0.0381" asserts="0" success="True" result="Success" />
+          <test-case description="Contains a root module path in the manifest" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Contains a root module path in the manifest" executed="True" time="0.0213" asserts="0" success="True" result="Success" />
+          <test-case description="Contains all needed properties in the Manifest for PSGallery Uploads" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Contains all needed properties in the Manifest for PSGallery Uploads" executed="True" time="0.0134" asserts="0" success="True" result="Success" />
+          <test-case description="Function Connect-EXOSession Has show-help comment block" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Connect-EXOSession Has show-help comment block" executed="True" time="0.2083" asserts="0" success="True" result="Success" />
+          <test-case description="Function Connect-EXOSession Has show-help comment block has a.SYNOPSIS" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Connect-EXOSession Has show-help comment block has a.SYNOPSIS" executed="True" time="0.0153" asserts="0" success="True" result="Success" />
+          <test-case description="Function Connect-EXOSession Has show-help comment block has an example" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Connect-EXOSession Has show-help comment block has an example" executed="True" time="0.0343" asserts="0" success="True" result="Success" />
+          <test-case description="Function Connect-EXOSession Is an advanced function" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Connect-EXOSession Is an advanced function" executed="True" time="0.0121" asserts="0" success="True" result="Success" />
+          <test-case description="Is valid Powershell (Has no script errors)" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Is valid Powershell (Has no script errors)" executed="True" time="0.1239" asserts="0" success="True" result="Success" />
+          <test-case description="Has a root module file (.psm1)" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Has a root module file (.psm1)" executed="True" time="0.0111" asserts="0" success="True" result="Success" />
+          <test-case description="Is valid PowerShell" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Is valid PowerShell" executed="True" time="0.0202" asserts="0" success="True" result="Success" />
+          <test-case description="passes the PSScriptAnalyzer without Errors" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.passes the PSScriptAnalyzer without Errors" executed="True" time="0.478" asserts="0" success="True" result="Success" />
+          <test-case description="passes the PSScriptAnalyzer with less than 10 Warnings" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.passes the PSScriptAnalyzer with less than 10 Warnings" executed="True" time="0.5455" asserts="0" success="True" result="Success" />
+          <test-case description="Has a manifest file (Eventbrite.psd1)" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Has a manifest file (Eventbrite.psd1)" executed="True" time="0.0249" asserts="0" success="True" result="Success" />
+          <test-case description="Contains a root module path in the manifest" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Contains a root module path in the manifest" executed="True" time="0.0143" asserts="0" success="True" result="Success" />
+          <test-case description="Contains all needed properties in the Manifest for PSGallery Uploads" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Contains all needed properties in the Manifest for PSGallery Uploads" executed="True" time="0.0149" asserts="0" success="True" result="Success" />
+          <test-case description="Function Get-EventbriteEvent Has show-help comment block" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Get-EventbriteEvent Has show-help comment block" executed="True" time="0.2021" asserts="0" success="False" result="Failure">
+            <failure>
+              <message>Expected: {True}
+But was:  {False}</message>
+              <stack-trace>at line: 65 in C:\Users\Ryan\Onedrive\Github\PoshFunctions\StandardTests\PoshFunctionsStandard.tests.ps1
+65:                 $modulefunction.Definition.Contains('&lt;#') | should be 'True'
+</stack-trace>
+            </failure>
+          </test-case>
+          <test-case description="Function Get-EventbriteEvent Has show-help comment block has a.SYNOPSIS" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Get-EventbriteEvent Has show-help comment block has a.SYNOPSIS" executed="True" time="0.0185" asserts="0" success="False" result="Failure">
+            <failure>
+              <message>Expected: {True}
+But was:  {False}</message>
+              <stack-trace>at line: 71 in C:\Users\Ryan\Onedrive\Github\PoshFunctions\StandardTests\PoshFunctionsStandard.tests.ps1
+71:                 $modulefunction.Definition.Contains('.SYNOPSIS') -or $modulefunction.Definition.Contains('.Synopsis') | should be 'True'
+</stack-trace>
+            </failure>
+          </test-case>
+          <test-case description="Function Get-EventbriteEvent Has show-help comment block has an example" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Get-EventbriteEvent Has show-help comment block has an example" executed="True" time="0.0182" asserts="0" success="False" result="Failure">
+            <failure>
+              <message>Expected: {True}
+But was:  {False}</message>
+              <stack-trace>at line: 78 in C:\Users\Ryan\Onedrive\Github\PoshFunctions\StandardTests\PoshFunctionsStandard.tests.ps1
+78:                 $modulefunction.Definition.Contains('.EXAMPLE') | should be 'True'
+</stack-trace>
+            </failure>
+          </test-case>
+          <test-case description="Function Get-EventbriteEvent Is an advanced function" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Get-EventbriteEvent Is an advanced function" executed="True" time="0.0216" asserts="0" success="True" result="Success" />
+          <test-case description="Function Get-EventbriteEventQuestions Has show-help comment block" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Get-EventbriteEventQuestions Has show-help comment block" executed="True" time="0.0285" asserts="0" success="False" result="Failure">
+            <failure>
+              <message>Expected: {True}
+But was:  {False}</message>
+              <stack-trace>at line: 65 in C:\Users\Ryan\Onedrive\Github\PoshFunctions\StandardTests\PoshFunctionsStandard.tests.ps1
+65:                 $modulefunction.Definition.Contains('&lt;#') | should be 'True'
+</stack-trace>
+            </failure>
+          </test-case>
+          <test-case description="Function Get-EventbriteEventQuestions Has show-help comment block has a.SYNOPSIS" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Get-EventbriteEventQuestions Has show-help comment block has a.SYNOPSIS" executed="True" time="0.0166" asserts="0" success="False" result="Failure">
+            <failure>
+              <message>Expected: {True}
+But was:  {False}</message>
+              <stack-trace>at line: 71 in C:\Users\Ryan\Onedrive\Github\PoshFunctions\StandardTests\PoshFunctionsStandard.tests.ps1
+71:                 $modulefunction.Definition.Contains('.SYNOPSIS') -or $modulefunction.Definition.Contains('.Synopsis') | should be 'True'
+</stack-trace>
+            </failure>
+          </test-case>
+          <test-case description="Function Get-EventbriteEventQuestions Has show-help comment block has an example" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Get-EventbriteEventQuestions Has show-help comment block has an example" executed="True" time="0.0192" asserts="0" success="False" result="Failure">
+            <failure>
+              <message>Expected: {True}
+But was:  {False}</message>
+              <stack-trace>at line: 78 in C:\Users\Ryan\Onedrive\Github\PoshFunctions\StandardTests\PoshFunctionsStandard.tests.ps1
+78:                 $modulefunction.Definition.Contains('.EXAMPLE') | should be 'True'
+</stack-trace>
+            </failure>
+          </test-case>
+          <test-case description="Function Get-EventbriteEventQuestions Is an advanced function" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Get-EventbriteEventQuestions Is an advanced function" executed="True" time="0.0261" asserts="0" success="True" result="Success" />
+          <test-case description="Function Get-EventbriteEvents Has show-help comment block" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Get-EventbriteEvents Has show-help comment block" executed="True" time="0.0122" asserts="0" success="False" result="Failure">
+            <failure>
+              <message>Expected: {True}
+But was:  {False}</message>
+              <stack-trace>at line: 65 in C:\Users\Ryan\Onedrive\Github\PoshFunctions\StandardTests\PoshFunctionsStandard.tests.ps1
+65:                 $modulefunction.Definition.Contains('&lt;#') | should be 'True'
+</stack-trace>
+            </failure>
+          </test-case>
+          <test-case description="Function Get-EventbriteEvents Has show-help comment block has a.SYNOPSIS" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Get-EventbriteEvents Has show-help comment block has a.SYNOPSIS" executed="True" time="0.0182" asserts="0" success="False" result="Failure">
+            <failure>
+              <message>Expected: {True}
+But was:  {False}</message>
+              <stack-trace>at line: 71 in C:\Users\Ryan\Onedrive\Github\PoshFunctions\StandardTests\PoshFunctionsStandard.tests.ps1
+71:                 $modulefunction.Definition.Contains('.SYNOPSIS') -or $modulefunction.Definition.Contains('.Synopsis') | should be 'True'
+</stack-trace>
+            </failure>
+          </test-case>
+          <test-case description="Function Get-EventbriteEvents Has show-help comment block has an example" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Get-EventbriteEvents Has show-help comment block has an example" executed="True" time="0.0295" asserts="0" success="False" result="Failure">
+            <failure>
+              <message>Expected: {True}
+But was:  {False}</message>
+              <stack-trace>at line: 78 in C:\Users\Ryan\Onedrive\Github\PoshFunctions\StandardTests\PoshFunctionsStandard.tests.ps1
+78:                 $modulefunction.Definition.Contains('.EXAMPLE') | should be 'True'
+</stack-trace>
+            </failure>
+          </test-case>
+          <test-case description="Function Get-EventbriteEvents Is an advanced function" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Get-EventbriteEvents Is an advanced function" executed="True" time="0.0186" asserts="0" success="True" result="Success" />
+          <test-case description="Function get-eventbriteOrders Has show-help comment block" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function get-eventbriteOrders Has show-help comment block" executed="True" time="0.0118" asserts="0" success="False" result="Failure">
+            <failure>
+              <message>Expected: {True}
+But was:  {False}</message>
+              <stack-trace>at line: 65 in C:\Users\Ryan\Onedrive\Github\PoshFunctions\StandardTests\PoshFunctionsStandard.tests.ps1
+65:                 $modulefunction.Definition.Contains('&lt;#') | should be 'True'
+</stack-trace>
+            </failure>
+          </test-case>
+          <test-case description="Function get-eventbriteOrders Has show-help comment block has a.SYNOPSIS" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function get-eventbriteOrders Has show-help comment block has a.SYNOPSIS" executed="True" time="0.0339" asserts="0" success="False" result="Failure">
+            <failure>
+              <message>Expected: {True}
+But was:  {False}</message>
+              <stack-trace>at line: 71 in C:\Users\Ryan\Onedrive\Github\PoshFunctions\StandardTests\PoshFunctionsStandard.tests.ps1
+71:                 $modulefunction.Definition.Contains('.SYNOPSIS') -or $modulefunction.Definition.Contains('.Synopsis') | should be 'True'
+</stack-trace>
+            </failure>
+          </test-case>
+          <test-case description="Function get-eventbriteOrders Has show-help comment block has an example" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function get-eventbriteOrders Has show-help comment block has an example" executed="True" time="0.0239" asserts="0" success="False" result="Failure">
+            <failure>
+              <message>Expected: {True}
+But was:  {False}</message>
+              <stack-trace>at line: 78 in C:\Users\Ryan\Onedrive\Github\PoshFunctions\StandardTests\PoshFunctionsStandard.tests.ps1
+78:                 $modulefunction.Definition.Contains('.EXAMPLE') | should be 'True'
+</stack-trace>
+            </failure>
+          </test-case>
+          <test-case description="Function get-eventbriteOrders Is an advanced function" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function get-eventbriteOrders Is an advanced function" executed="True" time="0.0502" asserts="0" success="True" result="Success" />
+          <test-case description="Function Set-EVGroupDistributionList Has show-help comment block" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Set-EVGroupDistributionList Has show-help comment block" executed="True" time="0.0228" asserts="0" success="False" result="Failure">
+            <failure>
+              <message>Expected: {True}
+But was:  {False}</message>
+              <stack-trace>at line: 65 in C:\Users\Ryan\Onedrive\Github\PoshFunctions\StandardTests\PoshFunctionsStandard.tests.ps1
+65:                 $modulefunction.Definition.Contains('&lt;#') | should be 'True'
+</stack-trace>
+            </failure>
+          </test-case>
+          <test-case description="Function Set-EVGroupDistributionList Has show-help comment block has a.SYNOPSIS" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Set-EVGroupDistributionList Has show-help comment block has a.SYNOPSIS" executed="True" time="0.0264" asserts="0" success="False" result="Failure">
+            <failure>
+              <message>Expected: {True}
+But was:  {False}</message>
+              <stack-trace>at line: 71 in C:\Users\Ryan\Onedrive\Github\PoshFunctions\StandardTests\PoshFunctionsStandard.tests.ps1
+71:                 $modulefunction.Definition.Contains('.SYNOPSIS') -or $modulefunction.Definition.Contains('.Synopsis') | should be 'True'
+</stack-trace>
+            </failure>
+          </test-case>
+          <test-case description="Function Set-EVGroupDistributionList Has show-help comment block has an example" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Set-EVGroupDistributionList Has show-help comment block has an example" executed="True" time="0.0294" asserts="0" success="False" result="Failure">
+            <failure>
+              <message>Expected: {True}
+But was:  {False}</message>
+              <stack-trace>at line: 78 in C:\Users\Ryan\Onedrive\Github\PoshFunctions\StandardTests\PoshFunctionsStandard.tests.ps1
+78:                 $modulefunction.Definition.Contains('.EXAMPLE') | should be 'True'
+</stack-trace>
+            </failure>
+          </test-case>
+          <test-case description="Function Set-EVGroupDistributionList Is an advanced function" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Set-EVGroupDistributionList Is an advanced function" executed="True" time="0.0189" asserts="0" success="True" result="Success" />
+          <test-case description="Is valid Powershell (Has no script errors)" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Is valid Powershell (Has no script errors)" executed="True" time="0.1469" asserts="0" success="True" result="Success" />
+          <test-case description="Has a root module file (.psm1)" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Has a root module file (.psm1)" executed="True" time="0.0144" asserts="0" success="True" result="Success" />
+          <test-case description="Is valid PowerShell" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Is valid PowerShell" executed="True" time="0.0144" asserts="0" success="True" result="Success" />
+          <test-case description="passes the PSScriptAnalyzer without Errors" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.passes the PSScriptAnalyzer without Errors" executed="True" time="0.2685" asserts="0" success="True" result="Success" />
+          <test-case description="passes the PSScriptAnalyzer with less than 10 Warnings" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.passes the PSScriptAnalyzer with less than 10 Warnings" executed="True" time="0.2419" asserts="0" success="True" result="Success" />
+          <test-case description="Has a manifest file (Get-ExchangedCurrency.psd1)" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Has a manifest file (Get-ExchangedCurrency.psd1)" executed="True" time="0.023" asserts="0" success="True" result="Success" />
+          <test-case description="Contains a root module path in the manifest" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Contains a root module path in the manifest" executed="True" time="0.0171" asserts="0" success="True" result="Success" />
+          <test-case description="Contains all needed properties in the Manifest for PSGallery Uploads" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Contains all needed properties in the Manifest for PSGallery Uploads" executed="True" time="0.0212" asserts="0" success="True" result="Success" />
+          <test-case description="Function Get-ExchangedCurrency Has show-help comment block" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Get-ExchangedCurrency Has show-help comment block" executed="True" time="0.2295" asserts="0" success="True" result="Success" />
+          <test-case description="Function Get-ExchangedCurrency Has show-help comment block has a.SYNOPSIS" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Get-ExchangedCurrency Has show-help comment block has a.SYNOPSIS" executed="True" time="0.0165" asserts="0" success="True" result="Success" />
+          <test-case description="Function Get-ExchangedCurrency Has show-help comment block has an example" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Get-ExchangedCurrency Has show-help comment block has an example" executed="True" time="0.0136" asserts="0" success="True" result="Success" />
+          <test-case description="Function Get-ExchangedCurrency Is an advanced function" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function Get-ExchangedCurrency Is an advanced function" executed="True" time="0.0222" asserts="0" success="True" result="Success" />
+          <test-case description="Is valid Powershell (Has no script errors)" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Is valid Powershell (Has no script errors)" executed="True" time="0.1296" asserts="0" success="True" result="Success" />
+          <test-case description="Has a root module file (.psm1)" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Has a root module file (.psm1)" executed="True" time="0.0107" asserts="0" success="True" result="Success" />
+          <test-case description="Is valid PowerShell" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Is valid PowerShell" executed="True" time="0.0214" asserts="0" success="True" result="Success" />
+          <test-case description="passes the PSScriptAnalyzer without Errors" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.passes the PSScriptAnalyzer without Errors" executed="True" time="0.6987" asserts="0" success="True" result="Success" />
+          <test-case description="passes the PSScriptAnalyzer with less than 10 Warnings" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.passes the PSScriptAnalyzer with less than 10 Warnings" executed="True" time="0.975" asserts="0" success="True" result="Success" />
+          <test-case description="Has a manifest file (New-GitHubEmailStuff.psd1)" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Has a manifest file (New-GitHubEmailStuff.psd1)" executed="True" time="0.0256" asserts="0" success="True" result="Success" />
+          <test-case description="Contains a root module path in the manifest" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Contains a root module path in the manifest" executed="True" time="0.0276" asserts="0" success="True" result="Success" />
+          <test-case description="Contains all needed properties in the Manifest for PSGallery Uploads" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Contains all needed properties in the Manifest for PSGallery Uploads" executed="True" time="0.0176" asserts="0" success="True" result="Success" />
+          <test-case description="Function New-GithubEmailStuffs Has show-help comment block" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function New-GithubEmailStuffs Has show-help comment block" executed="True" time="0.2027" asserts="0" success="True" result="Success" />
+          <test-case description="Function New-GithubEmailStuffs Has show-help comment block has a.SYNOPSIS" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function New-GithubEmailStuffs Has show-help comment block has a.SYNOPSIS" executed="True" time="0.015" asserts="0" success="True" result="Success" />
+          <test-case description="Function New-GithubEmailStuffs Has show-help comment block has an example" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function New-GithubEmailStuffs Has show-help comment block has an example" executed="True" time="0.0187" asserts="0" success="True" result="Success" />
+          <test-case description="Function New-GithubEmailStuffs Is an advanced function" name="MODULE TESTING!!! Testing all Modules in this Repo to be be correctly formatted.Function New-GithubEmailStuffs Is an advanced function" executed="True" time="0.0162" asserts="0" success="True" result="Success" />
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>

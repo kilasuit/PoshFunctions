@@ -1,5 +1,13 @@
 ﻿Function Get-ExternalIpOnTrain {
+<#
+.Synopsis
+   This function is just for getting external IP address and Wi-fi Speed
+.EXAMPLE
+   Get-ExternalIPOnTrain 
 
+#>
+[cmdletbinding()]
+param()
 try{
     $wc=New-Object net.webclient
     $ip = $wc.downloadstring("http://checkip.dyndns.com") -replace "[^\d\.]"

@@ -1,6 +1,6 @@
 function Get-ExchangedCurrency{
 <#
-.Synopsis
+.SYNOPSIS
    This function will get back a rough estimate on how much that item will cost you in GBP
 .DESCRIPTION
    This will check if the List Name already exists (as there cannot be 2 lists or libraries with the same name) 
