@@ -2,7 +2,7 @@ $Here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $RootLocation = Split-Path -Parent $here
 
 
-$Scripts = Get-ChildItem "$RootLocation\" -Filter '*.ps1' -Recurse | Where-Object {$_.name -NotMatch "Tests.ps1"}
+$Scripts = Get-ChildItem "$RootLocation\Scripts\" -Filter '*.ps1' -Recurse | Where-Object {$_.name -NotMatch "Tests.ps1"}
 $Modules = Get-ChildItem "$RootLocation\Modules\" -Filter '*.psm1' -Recurse
 
 
@@ -41,11 +41,11 @@ Describe "Testing all Modules in this Repo to be be correctly formatted" {
     }
 
      It 'passes the PSScriptAnalyzer without Errors' {
-        (Invoke-ScriptAnalyzer -Path $module.PSParentPath -Recurse -Severity Error).Count | Should Be 0
+        (Invoke-ScriptAnalyzer -Path $module.Directory -Recurse -Severity Error).Count | Should Be 0
     }
 
      It 'passes the PSScriptAnalyzer with less than 10 Warnings excluding PSUseShouldProcessForStateChangingFunctions Rule as it is currently Pants!' {
-        (Invoke-ScriptAnalyzer -Path $module.PSParentPath -Recurse -Severity Warning -ExcludeRule PSUseShouldProcessForStateChangingFunctions).Count | Should BeLessThan 10 
+        (Invoke-ScriptAnalyzer -Path $module.Directory -Recurse -Severity Warning -ExcludeRule PSUseShouldProcessForStateChangingFunctions,PSUseSingularNouns).Count | Should BeLessThan 10 
     }
 
     $functions = Get-Command -FullyQualifiedModule $module.BaseName 
@@ -97,11 +97,11 @@ Describe "Testing all Scripts in this Repo to be be correctly formatted" {
             }
             
      It 'passes the PSScriptAnalyzer without Errors' {
-        (Invoke-ScriptAnalyzer -Path $script.PSParentPath -Severity Error).Count | Should Be 0
+        (Invoke-ScriptAnalyzer -Path $script.FullName -Severity Error).Count | Should Be 0
     }
 
      It 'passes the PSScriptAnalyzer with less than 10 Warnings excluding PSUseShouldProcessForStateChangingFunctions Rule as it is currently Pants!' {
-        (Invoke-ScriptAnalyzer -Path $script.PSParentPath -Severity Warning -ExcludeRule PSUseShouldProcessForStateChangingFunctions).Count | Should BeLessThan 10 
+        (Invoke-ScriptAnalyzer -Path $script.FullName -Severity Warning -ExcludeRule PSUseShouldProcessForStateChangingFunctions).Count | Should BeLessThan 10 
     }
 
     It "Has show-help comment block" {
