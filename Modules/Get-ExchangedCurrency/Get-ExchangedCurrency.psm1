@@ -24,7 +24,7 @@ function Get-ExchangedCurrency{
 [cmdletbinding()]
 param (
     [Parameter(Mandatory=$true)]
-    [ValidateSet("SGD","EUR", "USD")]
+    [[ValidateSet('AUD','BGN','BRL','CAD','CHF','CNY','CZK','DKK','HKD','HRK','HUF','IDR','ILS','INR','JPY','KRW','MXN','MYR','NOK','NZD','PHP','PLN','RON','RUB','SEK','SGD','THB','TRY','USD','ZAR','EUR')]
     [string] $curCode,
 
     [Parameter(Mandatory=$false)]
