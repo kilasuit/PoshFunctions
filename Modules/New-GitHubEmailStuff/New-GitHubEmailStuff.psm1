@@ -1,7 +1,7 @@
-﻿#Module#New-GitHubEmailStuff#
+#Module#New-GitHubEmailStuff#
 function New-GithubEmailStuffs { 
 <#
-.Synopsis
+.SYNOPSIS
    Creates New Folders and Rules in EXO Mailbox for the Github User & Exchange Mailbox User (Could be run by Exchange Admins in a company)
 .DESCRIPTION
    Really saves time with nonsense for GitHub Issues tracking using the Open GitHub API for watched Public Repositories.
@@ -32,8 +32,9 @@ Param (
     [PSCredential]$EXOCredential
       )
 $repos =@()
-$web = Invoke-RestMethod -Uri "https://api.github.com/users/$githubuser/repos" 
-$web | ForEach-Object { $repos += $_.name }
+$web = Invoke-WebRequest -Uri "https://api.github.com/users/$githubuser/subscriptions"
+$page1 = Invoke-RestMethod -Uri "https://api.github.com/users/$githubuser/subscriptions"
+$page1 | ForEach-Object { $repos += $_.name }
 if ($web.Headers.Keys.Contains('Link'))
 {
     $LastLink = $web.Headers.Link.Split(',')[1].replace('<','').replace('>','').replace(' ','').replace('rel="last"','').replace(';','')
