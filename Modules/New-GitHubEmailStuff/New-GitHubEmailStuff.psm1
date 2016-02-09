@@ -10,30 +10,33 @@ function New-GithubEmailStuffs {
 
    This will connect to Github API for the GitHub User kilasuit and then will connect to Exchange Online using the Required Connect-EXOSession Module with the Credentials
    passed to the EXOCredential Parameter and then will use the MailboxFolderParent Parameter for checking/adding the new folders and rules.
-.TO-DO
+.NOTES
+    TO-DO
     Parameter help
     Include private repo searching via OAuth tokens and additional Parameter
     Ideally Clean up the multiple replaces that are used to set up the Last Link variable.
     Quicken the execution of this function as it is quite slow at the moment.
     Adapt and release a version that doesnt require use of Exchange functionality and can be used with Outlook using the Outlook COM model.
-.LICENSE
+    LICENSE
     MIT
-.AUTHOR
+    AUTHOR
     Ryan Yates - Ryan.yates@kilasuit.org
+    REQUIRES Modules Connect-EXOSession,GithubConnect
 #>
-#Requires -Module Connect-EXOSession
 [CmdletBinding()]
 Param ( 
     [Parameter(Mandatory=$true,Position=0)] 
-    [string]$githubUser,
-    [Parameter(Mandatory=$true,Position=0)] 
     [string]$MailboxFolderParent,
     [Parameter(Mandatory=$true,Position=0)] 
-    [PSCredential]$EXOCredential
+    [PSCredential]$EXOCredential,
+    [Parameter(Mandatory=$true,Position=0)] 
+    [string]$PersonalGithubOauthToken
       )
 $repos =@()
-$web = Invoke-WebRequest -Uri "https://api.github.com/users/$githubuser/subscriptions"
-$page1 = Invoke-RestMethod -Uri "https://api.github.com/users/$githubuser/subscriptions"
+if(-not (get-module githubconnect,Connect-EXOSesson -ErrorAction SilentlyContinue ) ) { Import-Module GithubConnect,Connect-EXOSession }
+Connect-Github -PersonalOAuthToken $PersonalGithubOauthToken | Out-Null
+$web = Invoke-WebRequest -Uri "https://api.github.com/user/subscriptions" -Method Get -Headers @{"Authorization"="token $GithubPersonalOAuthToken"}
+$page1 = Invoke-RestMethod -Uri "https://api.github.com/user/subscriptions" -Method Get -Headers @{"Authorization"="token $GithubPersonalOAuthToken"}
 $page1 | ForEach-Object { $repos += $_.name }
 if ($web.Headers.Keys.Contains('Link'))
 {
@@ -42,7 +45,7 @@ if ($web.Headers.Keys.Contains('Link'))
     $pages = 2..$last
     foreach ($page in $pages)
         {
-        Invoke-RestMethod -Uri "https://api.github.com/users/$githubuser/subscriptions?page=$page" | ForEach-Object { $repos += $_.name }
+        Invoke-RestMethod -Uri "https://api.github.com/user/subscriptions?page=$page" -Method Get -Headers @{"Authorization"="token $GithubPersonalOAuthToken"} | ForEach-Object { $repos += $_.name }
         }
 }
 $repos = $repos | Sort-Object -Unique

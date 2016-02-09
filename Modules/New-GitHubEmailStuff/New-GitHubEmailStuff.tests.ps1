@@ -1,68 +1,58 @@
-$here = Split-Path -Parent $MyInvocation.MyCommand.Path
+$Here = Split-Path -Parent $MyInvocation.MyCommand.Path
+$RootLocation = Split-Path -Parent $here
 
-$module_name = Split-Path -Leaf $here
 
-Describe "Tests the module framework for $module_name" {
-    It "Has a root module file ($module_name.psm1)" {        
+$Scripts = Get-ChildItem "$here\" -Filter '*.ps1' -Recurse | Where-Object {$_.name -NotMatch "Tests.ps1"}
+$Modules = Get-ChildItem "$here\" -Filter '*.psm1' -Recurse
+
+if ($Modules.count -gt 0) {
+Describe "Testing all Modules in this Repo to be be correctly formatted" {
+
+    foreach($module in $modules)
+    {
+
+    Context "Testing Module  - $($module.BaseName) for Standard Processing" {
+    Import-Module $module.FullName
+          It "Is valid Powershell (Has no script errors)" {
+
+                $contents = Get-Content -Path $module.FullName -ErrorAction Stop
+                $errors = $null
+             $null = [System.Management.Automation.PSParser]::Tokenize($contents, [ref]$errors)
+                $errors.Count | Should Be 0
+            }
+            It "Has a root module file ($module_name.psm1)" {        
             
-        "$here\$module_name.psm1" | Should Exist
+        $module.FullName.Replace('psm1','psd1') | Should Exist
     }
 
-    It "Is valid PowerShell" {
-
-        $contents = Get-Content -Path "$here\$module_name.psm1" -ErrorAction Stop
-        $errors = $null
-        $null = [System.Management.Automation.PSParser]::Tokenize($contents, [ref]$errors)
-        $errors.Count | Should Be 0
-    }
-
-    It 'passes the PSScriptAnalyzer without Errors' {
-        (Invoke-ScriptAnalyzer -Path $here -Recurse -Severity Error).Count | Should Be 0
-    }
-
-     It 'passes the PSScriptAnalyzer with less than 10 Warnings' {
-        (Invoke-ScriptAnalyzer -Path $here -Recurse -Severity Warning).Count | Should BeLessThan 10 
-    }
-
-    It "Has a manifest file ($module_name.psd1)" {
+    It "Has a manifest file ($($module.BaseName).psd1)" {
             
-        "$here\$module_name.psd1" | Should Exist
+        $module.FullName.Replace('psm1','psd1') | Should Exist
     }
 
     It "Contains a root module path in the manifest" {
             
-        "$here\$module_name.psd1" | Should Contain "$module_name.psm1"
+        $module.FullName.Replace('psm1','psd1') | Should Contain "$module_name.psm1"
     }
 
     It "Contains all needed properties in the Manifest for PSGallery Uploads" {
     
-        "$here\$module_name.psd1" | Should Contain "Author = *"
-    }
-}
-
-Describe "Tests the modules to be be correctly formatted" {
-
-$scripts = Get-ChildItem "$here\*.psm1" | Where-Object {$_.name -NotMatch "Tests.ps1"}
-    
-    foreach($script in $scripts)
-    {
-    Import-Module $script.FullName
-          It "Is valid Powershell (Has no script errors)" {
-
-                $contents = Get-Content -Path $script.FullName -ErrorAction Stop
-                $errors = $null
-                $null = [System.Management.Automation.PSParser]::Tokenize($contents, [ref]$errors)
-                $errors.Count | Should Be 0
-            }
-        }
+        $module.FullName.Replace('psm1','psd1') | Should Contain "Author = *"
     }
 
-Describe "Tests the Functions to ensure that they are correctly formatted" {
-$functions = Get-Command -FullyQualifiedModule $module_name 
+     It 'passes the PSScriptAnalyzer without Errors' {
+        (Invoke-ScriptAnalyzer -Path $module.Directory -Recurse -Severity Error).Count | Should Be 0
+    }
+
+     It 'passes the PSScriptAnalyzer with less than 10 Warnings excluding PSUseShouldProcessForStateChangingFunctions Rule as it is currently Pants!' {
+        (Invoke-ScriptAnalyzer -Path $module.Directory -Recurse -Severity Warning -ExcludeRule PSUseShouldProcessForStateChangingFunctions,PSUseSingularNouns).Count | Should BeLessThan 10 
+    }
+    }
+    $functions = Get-Command -FullyQualifiedModule $module.BaseName 
     foreach($modulefunction in $functions)
     {
-
-        Context "Function $($modulefunction.Name)" {
+    
+        Context "Testing that the function - $($modulefunction.Name) - is compliant" {
             It "Function $($modulefunction.Name) Has show-help comment block" {
 
                 $modulefunction.Definition.Contains('<#') | should be 'True'
@@ -83,9 +73,63 @@ $functions = Get-Command -FullyQualifiedModule $module_name
 
             It "Function $($modulefunction.Name) Is an advanced function" {
 
-                $modulefunction.CmdletBinding | should be 'True'
-                $modulefunction.Definition.Contains('param') -or  $modulefunction.Definition.Contains('Param') | should be 'True'
+                ($modulefunction.CmdletBinding | should be 'True') -and ($modulefunction.Definition.Contains('param') -or  $modulefunction.Definition.Contains('Param') | should be 'True')
+            }
             }
         }
     }
+ }
 }
+
+if ($scripts.count -gt 0) {
+Describe "Testing all Scripts in this Repo to be be correctly formatted" {
+
+    foreach($Script in $Scripts)
+    {
+
+    Context "Testing Script  - $($Script.BaseName) for Standard Processing" {
+    
+          It "Is valid Powershell (Has no script errors)" {
+
+                $contents = Get-Content -Path $script.FullName -ErrorAction Stop
+                $errors = $null
+                $null = [System.Management.Automation.PSParser]::Tokenize($contents, [ref]$errors)
+                $errors.Count | Should Be 0
+            }
+            
+     It 'passes the PSScriptAnalyzer without Errors' {
+        (Invoke-ScriptAnalyzer -Path $script.FullName -Severity Error).Count | Should Be 0
+    }
+
+     It 'passes the PSScriptAnalyzer with less than 10 Warnings excluding PSUseShouldProcessForStateChangingFunctions Rule as it is currently Pants!' {
+        (Invoke-ScriptAnalyzer -Path $script.FullName -Severity Warning -ExcludeRule PSUseShouldProcessForStateChangingFunctions).Count | Should BeLessThan 10 
+    }
+
+    It "Has show-help comment block" {
+
+                $script.FullName | should contain '<#'
+                $script.FullName | should contain '#>'
+            }
+
+            It "Has show-help comment block has a synopsis" {
+
+                $script.FullName | should contain '\.SYNOPSIS'
+            }
+
+            It "Has show-help comment block has an example" {
+
+                $script.FullName | should contain '\.EXAMPLE'
+            }
+
+            It "Is an advanced function" {
+
+                $script.FullName | should contain 'function'
+                $script.FullName | should contain 'cmdletbinding'
+                $script.FullName | should contain 'param'
+            }
+            }
+
+        }
+    }
+} 
+
