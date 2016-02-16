@@ -30,7 +30,7 @@ param()
     $WC.DownloadFile($version,"$env:TEMP\$Filename")
     $WC.Dispose()
 
-    Start "$env:TEMP\$Filename"
+    wusa.exe $env:TEMP\$Filename /quiet
 
     Start-Sleep 80
     Remove-Item "$env:TEMP\$Filename"
