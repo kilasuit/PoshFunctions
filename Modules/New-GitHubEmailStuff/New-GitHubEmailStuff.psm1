@@ -33,7 +33,6 @@ Param (
     [string]$PersonalGithubOauthToken
       )
 $repos =@()
-if(-not (get-module githubconnect,Connect-EXOSesson -ErrorAction SilentlyContinue ) ) { Import-Module GithubConnect,Connect-EXOSession }
 Connect-Github -PersonalOAuthToken $PersonalGithubOauthToken | Out-Null
 $web = Invoke-WebRequest -Uri "https://api.github.com/user/subscriptions" -Method Get -Headers @{"Authorization"="token $GithubPersonalOAuthToken"}
 $page1 = Invoke-RestMethod -Uri "https://api.github.com/user/subscriptions" -Method Get -Headers @{"Authorization"="token $GithubPersonalOAuthToken"}
@@ -51,12 +50,12 @@ if ($web.Headers.Keys.Contains('Link'))
 $repos = $repos | Sort-Object -Unique
 Connect-EXOSession -EXOCredential $EXOCredential
 $folders = Get-MailboxFolder $MailboxFolderParent -GetChildren | Select-Object -ExpandProperty Name 
-foreach ($repo in $repos) { 
-    if($folders -notcontains $repo) 
-        { New-MailboxFolder -Parent $MailboxFolderParent -Name $repo | Out-Null
-          New-InboxRule -SubjectContainsWords "[$repo]" -MoveToFolder $MailboxFolderParent\$repo -Name $repo -Force | Out-Null 
+foreach ($repo in $repos) {
+    if($folders -notcontains $repo) {
+          New-MailboxFolder -Parent $MailboxFolderParent -Name $repo | Out-Null
+          New-InboxRule -SubjectContainsWords "[$repo]" -MoveToFolder $MailboxFolderParent\$repo -Name "[$repo]" -Force | Out-Null 
           Write-Output "Folder & rule for $repo have been created"
-          } 
+        }
     }
 Remove-PSSession -Name EXOSession
 }
