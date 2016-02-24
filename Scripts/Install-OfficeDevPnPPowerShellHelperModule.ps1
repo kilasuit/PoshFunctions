@@ -10,6 +10,7 @@
    #>
 #Requires -Version 3.0
 #Requires -Modules PowerShellGet
+[Cmdletbinding()]
 param (
         [Parameter(Mandatory=$true,HelpMessage='v15 is for SharePoint On-Premises, v16 is for SharePoint Online')]
         [ValidateSet('v15','v16')]

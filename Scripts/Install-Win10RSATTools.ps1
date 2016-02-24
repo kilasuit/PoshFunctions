@@ -10,7 +10,8 @@ function Install-Win10RSATTools {
    #>
 
 #Requires -Version 5.0
-
+[Cmdletbinding()]
+param()
         $x86 = 'https://download.microsoft.com/download/1/D/8/1D8B5022-5477-4B9A-8104-6A71FF9D98AB/WindowsTH-KB2693643-x86.msu'
         $x64 = 'https://download.microsoft.com/download/1/D/8/1D8B5022-5477-4B9A-8104-6A71FF9D98AB/WindowsTH-KB2693643-x64.msu'
 
@@ -29,7 +30,7 @@ function Install-Win10RSATTools {
     $WC.DownloadFile($version,"$env:TEMP\$Filename")
     $WC.Dispose()
 
-    Start "$env:TEMP\$Filename"
+    wusa.exe $env:TEMP\$Filename /quiet
 
     Start-Sleep 80
     Remove-Item "$env:TEMP\$Filename"

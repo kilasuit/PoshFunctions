@@ -1,6 +1,6 @@
 function Get-ExchangedCurrency{
 <#
-.Synopsis
+.SYNOPSIS
    This function will get back a rough estimate on how much that item will cost you in GBP
 .DESCRIPTION
    This will check if the List Name already exists (as there cannot be 2 lists or libraries with the same name) 
@@ -21,10 +21,10 @@ function Get-ExchangedCurrency{
    
    Returns the $USD amount for £7
 #>
-
+[cmdletbinding()]
 param (
     [Parameter(Mandatory=$true)]
-    [ValidateSet("SGD","EUR", "USD")]
+    [ValidateSet('AUD','BGN','BRL','CAD','CHF','CNY','CZK','DKK','HKD','HRK','HUF','IDR','ILS','INR','JPY','KRW','MXN','MYR','NOK','NZD','PHP','PLN','RON','RUB','SEK','SGD','THB','TRY','USD','ZAR','EUR')]
     [string] $curCode,
 
     [Parameter(Mandatory=$false)]
