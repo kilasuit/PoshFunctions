@@ -18,7 +18,9 @@ $versionNumber.Split('.') | ForEach-Object { $versionArray += [int]$_}
 $caption = (Get-WmiObject -class Win32_OperatingSystem | Select-Object -ExpandProperty Caption)
 $architecture = Get-WmiObject -Class Win32_OperatingSystem |  Select-Object -ExpandProperty OSArchitecture
 Write-Verbose 'We have Identified your OS and are now determining the Correct package to Download'
-If ($SimpleVersionNumber -ge 7) { Write-Warning 'WMF 5 is not installable via this method'} else {
+If ($SimpleVersionNumber -ge 7) { 
+Write-Warning 'WMF 5 is not installable via this method as you are already running Windows10 or Server 2016'} 
+else {
     switch ($SimpleVersionNumber)
     {
         6.3    {$version = "Windows 2012R2/Win8.1"}
@@ -46,34 +48,30 @@ If ($SimpleVersionNumber -ge 7) { Write-Warning 'WMF 5 is not installable via th
         else { $version = "Windows 2012R2"}
     }
     elseif($version -eq "Windows 2012/Win8") {
-        if ($caption.contains('Windows 8')) { Write-Warning 'Looks like Windows 8 is not supported - Please check this link for more details' }
+        if ($caption.contains('Windows 8')) { Write-Warning 'Windows 8 is not supported for WMF5 - Sorry about that!' }
         else { $version = "Windows 2012"}
-    }
+    
   }  
- }             
+              
     switch ($Version)
     {
-        "Windows 2012R2"      {$link = "http://go.microsoft.com/fwlink/?LinkId=717507"}
-        "Windows 2012"        {$link = "http://go.microsoft.com/fwlink/?LinkId=717506"}
-        "Windows 2008R2"      {$link = "http://go.microsoft.com/fwlink/?LinkId=717504"}    
-        "Windows 8.1 64Bit"   {$link = "http://go.microsoft.com/fwlink/?LinkId=717507"}
-        "Windows 8.1 32Bit"   {$link = "http://go.microsoft.com/fwlink/?LinkID=717963"}
-        "Windows 7 64Bit"     {$link = "http://go.microsoft.com/fwlink/?LinkId=717504"}
-        "Windows 7 32Bit"     {$link = "http://go.microsoft.com/fwlink/?LinkID=717962"}
+        "Windows 2012R2"      {$link = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win8.1AndW2K12R2-KB3134758-x64.msu"}
+        "Windows 2012"        {$link = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/W2K12-KB3134759-x64.msu"}
+        "Windows 2008R2"      {$link = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win7AndW2K8R2-KB3134760-x64.msu"}    
+        "Windows 8.1 64Bit"   {$link = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win8.1AndW2K12R2-KB3134758-x64.msu"}
+        "Windows 8.1 32Bit"   {$link = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win8.1-KB3134758-x86.msu"}
+        "Windows 7 64Bit"     {$link = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win7AndW2K8R2-KB3134760-x64.msu"}
+        "Windows 7 32Bit"     {$link = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win7-KB3134760-x86.msu"}
     }
 
-    if(($version -eq ('Windows 2008R2' -or 'Windows 7 64Bit' -or 'Windows 7 32Bit')) -and ((Test-path $env:TEMP\WMF4Installed.txt) -eq $false) )
-   
-    {
-    Write-Warning 'Please use the Install WMF4 Script first'
+    if(($version -eq ('Windows 2008R2' -or 'Windows 7 64Bit' -or 'Windows 7 32Bit')) -and ((Test-path $env:TEMP\WMF4Installed.txt) -eq $false) ) {
+    Write-Warning 'Please use the Install WMF4 Script first and then Reboot your machine - '
     break
     }
-     
-    else
-    {
+    else {
 
     Write-Verbose 'We are now downloading the correct version of WMF5 for your System'
-   
+    Write-Verbose "System has been Identified as $version"
     $Request = [System.Net.WebRequest]::Create($link)
     $Request.Timeout = "100000000"
     $URL = $Request.GetResponse()
