@@ -64,12 +64,12 @@ else {
         "Windows 7 32Bit"     {$link = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win7-KB3134760-x86.msu"}
     }
 
-    #if(($version -eq ('Windows 2008R2' -or 'Windows 7 64Bit' -or 'Windows 7 32Bit')) -and ((Test-path $env:TEMP\WMF4Installed.txt) -eq $false) ) {
+    <#if(($version -eq ('Windows 2008R2' -or 'Windows 7 64Bit' -or 'Windows 7 32Bit')) -and ((Test-path $env:TEMP\WMF4Installed.txt) -eq $false) ) {
     Write-Warning 'Please use the Install WMF4 Script first and then Reboot your machine - '
     break
     }
     else {
-
+    #>
     Write-Verbose 'We are now downloading the correct version of WMF5 for your System'
     Write-Verbose "System has been Identified as $version"
     $Request = [System.Net.WebRequest]::Create($link)
