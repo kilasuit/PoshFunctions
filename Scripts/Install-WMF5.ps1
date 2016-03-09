@@ -1,5 +1,4 @@
-﻿#Script#Install-WMF5#
-function Install-WMF5 {
+﻿function Install-WMF5 {
 <#
     .Synopsis
     This Function will Install WMF5 on your system
@@ -12,9 +11,9 @@ function Install-WMF5 {
 [CmdletBinding()]
 param()
 $versionNumber = (Get-WmiObject -class Win32_OperatingSystem |  Select-Object -ExpandProperty version)
-$versionarray = New-Variable -Name VersionArray2
+$versionarray = @()
 $versionNumber.Split('.') | ForEach-Object { $versionArray += [int]$_}
-[decimal]$SimpleVersionNumber = "$($versionArray[0]).$($versionArray[1])"
+$SimpleVersionNumber = "$($versionArray[0]).$($versionArray[1])"
 $caption = (Get-WmiObject -class Win32_OperatingSystem | Select-Object -ExpandProperty Caption)
 $architecture = Get-WmiObject -Class Win32_OperatingSystem |  Select-Object -ExpandProperty OSArchitecture
 Write-Verbose 'We have Identified your OS and are now determining the Correct package to Download'
@@ -57,19 +56,13 @@ else {
     {
         "Windows 2012R2"      {$link = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win8.1AndW2K12R2-KB3134758-x64.msu"}
         "Windows 2012"        {$link = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/W2K12-KB3134759-x64.msu"}
-        "Windows 2008R2"      {$link = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win7AndW2K8R2-KB3134760-x64.msu"}    
+        #"Windows 2008R2"      {$link = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win7AndW2K8R2-KB3134760-x64.msu"}    
         "Windows 8.1 64Bit"   {$link = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win8.1AndW2K12R2-KB3134758-x64.msu"}
         "Windows 8.1 32Bit"   {$link = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win8.1-KB3134758-x86.msu"}
-        "Windows 7 64Bit"     {$link = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win7AndW2K8R2-KB3134760-x64.msu"}
-        "Windows 7 32Bit"     {$link = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win7-KB3134760-x86.msu"}
+        #"Windows 7 64Bit"     {$link = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win7AndW2K8R2-KB3134760-x64.msu"}
+        #"Windows 7 32Bit"     {$link = "https://download.microsoft.com/download/2/C/6/2C6E1B4A-EBE5-48A6-B225-2D2058A9CEFB/Win7-KB3134760-x86.msu"}
     }
 
-    <#if(($version -eq ('Windows 2008R2' -or 'Windows 7 64Bit' -or 'Windows 7 32Bit')) -and ((Test-path $env:TEMP\WMF4Installed.txt) -eq $false) ) {
-    Write-Warning 'Please use the Install WMF4 Script first and then Reboot your machine - '
-    break
-    }
-    else {
-    #>
     Write-Verbose 'We are now downloading the correct version of WMF5 for your System'
     Write-Verbose "System has been Identified as $version"
     $Request = [System.Net.WebRequest]::Create($link)
@@ -91,6 +84,6 @@ else {
     Start-Sleep 5
     shutdown /r /t 1
     }
-}
+
     
 Install-WMF5 -Verbose
