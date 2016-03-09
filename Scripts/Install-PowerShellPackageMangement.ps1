@@ -11,14 +11,22 @@ function Install-PowerShellPackageManagement {
 
 #Requires -Version 3.0
 [Cmdletbinding()]
-param()
+param(
+[System.Diagnostics.Switch]$Latest
+
+)
 
 if (!(Get-command -Module PowerShellGet).count -gt 0)
     {
-
+    if ($Latest) {
+    $x86 = 'https://download.microsoft.com/download/C/4/1/C41378D4-7F41-4BBE-9D0D-0E4F98585C61/PackageManagement_x86.msi'
+    $x64 = 'https://download.microsoft.com/download/C/4/1/C41378D4-7F41-4BBE-9D0D-0E4F98585C61/PackageManagement_x64.msi'
+        
+    }
+    Else{ 
         $x86 = 'https://download.microsoft.com/download/4/1/A/41A369FA-AA36-4EE9-845B-20BCC1691FC5/PackageManagement_x86.msi'
         $x64 = 'https://download.microsoft.com/download/4/1/A/41A369FA-AA36-4EE9-845B-20BCC1691FC5/PackageManagement_x64.msi'
-
+        }
     switch ($env:PROCESSOR_ARCHITECTURE)
     {
         'x86' {$version = $x86}
@@ -41,7 +49,4 @@ if (!(Get-command -Module PowerShellGet).count -gt 0)
     }
 }
 
-Install-PowerShellPackageManagement
-
-
-       
+Install-PowerShellPackageManagement -Latest       
