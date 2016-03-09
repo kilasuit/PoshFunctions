@@ -33,15 +33,10 @@ Param (
     [string]$PersonalGithubOauthToken
       )
 $repos =@()
-<<<<<<< HEAD
 Connect-Github -PersonalOAuthToken $PersonalGithubOauthToken | Out-Null
 $web = Invoke-WebRequest -Uri "https://api.github.com/user/subscriptions" -Method Get -Headers @{"Authorization"="token $GithubPersonalOAuthToken"}
 $page1 = Invoke-RestMethod -Uri "https://api.github.com/user/subscriptions" -Method Get -Headers @{"Authorization"="token $GithubPersonalOAuthToken"}
 $page1 | ForEach-Object { $repos += $_.name }
-=======
-$web = Invoke-WebRequest -Uri "https://api.github.com/users/$githubuser/subscriptions" 
-$web | ConvertFrom-Json | ForEach-Object { $repos += $_.name }
->>>>>>> origin/master
 if ($web.Headers.Keys.Contains('Link'))
 {
     $LastLink = $web.Headers.Link.Split(',')[1].replace('<','').replace('>','').replace(' ','').replace('rel="last"','').replace(';','')
@@ -49,11 +44,7 @@ if ($web.Headers.Keys.Contains('Link'))
     $pages = 2..$last
     foreach ($page in $pages)
         {
-<<<<<<< HEAD
         Invoke-RestMethod -Uri "https://api.github.com/user/subscriptions?page=$page" -Method Get -Headers @{"Authorization"="token $GithubPersonalOAuthToken"} | ForEach-Object { $repos += $_.name }
-=======
-        Invoke-WebRequest -Uri "https://api.github.com/users/$githubuser/subscriptions?page=$page" | ConvertFrom-Json | ForEach-Object { $repos += $_.name }
->>>>>>> origin/master
         }
 }
 $repos = $repos | Sort-Object -Unique
