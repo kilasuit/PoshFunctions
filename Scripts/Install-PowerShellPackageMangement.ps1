@@ -6,7 +6,7 @@ function Install-PowerShellPackageManagement {
    This uses System.Net.WebRequest & System.Net.WebClient to download the specific version of PowerShellPackageManager for your OS version (x64/x86) and then uses
    msiexec to install it.
 .EXAMPLE
-   Install-PowerShellPackageManagement
+   Install-PowerShellPackageManagement -Latest -Verbose
    #>
 
 #Requires -Version 3.0
