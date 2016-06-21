@@ -37,7 +37,7 @@ param()
     
 }
 
-Install-Win10RSATTools
+Install-Win10RSATTools -Verbose
 
 
        
