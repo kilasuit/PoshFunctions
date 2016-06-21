@@ -12,7 +12,7 @@ function Install-PowerShellPackageManagement {
 #Requires -Version 3.0
 [Cmdletbinding()]
 param(
-[System.Diagnostics.Switch]$Latest
+[Switch]$Latest
 
 )
 
