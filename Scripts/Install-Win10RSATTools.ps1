@@ -1,6 +1,6 @@
 <#PSScriptInfo
 
-.VERSION 1.0
+.VERSION 1.0.0
 
 .GUID 0b6b6733-a339-401a-b804-d107534bca0e
 
@@ -35,22 +35,14 @@
  Installs RSAT Tools for Windows 10 
 
 #>
-function Install-Win10RSATTools {
-<#
-.Synopsis
-   This Function will Install Win10 RSAT Tools on your windows 10 Machine
-.DESCRIPTION
-   This uses System.Net.WebRequest & System.Net.WebClient to download the specific version of Win10 RSAT Tools for your OS version (x64/x86) and then uses
-   msiexec to install it.
-.EXAMPLE
-   Install-Win10RSATTools
-   #>
-
 #Requires -Version 5.0 -RunAsAdministrator
 [Cmdletbinding()]
 param()
-        $x86 = 'https://download.microsoft.com/download/1/D/8/1D8B5022-5477-4B9A-8104-6A71FF9D98AB/WindowsTH-RSAT_WS2016-x86.msu'
-        $x64 = 'https://download.microsoft.com/download/1/D/8/1D8B5022-5477-4B9A-8104-6A71FF9D98AB/WindowsTH-RSAT_WS2016-x64.msu'
+
+    $VerbosePreference = 'Continue'
+
+    $x86 = 'https://download.microsoft.com/download/1/D/8/1D8B5022-5477-4B9A-8104-6A71FF9D98AB/WindowsTH-RSAT_WS2016-x86.msu'
+    $x64 = 'https://download.microsoft.com/download/1/D/8/1D8B5022-5477-4B9A-8104-6A71FF9D98AB/WindowsTH-RSAT_WS2016-x64.msu'
 
     switch ($env:PROCESSOR_ARCHITECTURE)
     {
@@ -75,9 +67,6 @@ param()
     Write-Verbose -Message "Script Cleanup complete"
     
     Write-Verbose -Message "Remote Administration"
-}
-
-Install-Win10RSATTools -Verbose
 
 
        
