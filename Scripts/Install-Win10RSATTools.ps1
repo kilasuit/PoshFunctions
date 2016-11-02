@@ -1,3 +1,40 @@
+<#PSScriptInfo
+
+.VERSION 1.0
+
+.GUID 0b6b6733-a339-401a-b804-d107534bca0e
+
+.AUTHOR Ryan Yates
+
+.COMPANYNAME Re-Digitise
+
+.COPYRIGHT Re-Digitise Limited
+
+.TAGS RSAT, Win10
+
+.LICENSEURI https://github.com/kilasuit/poshfunctions/License
+
+.PROJECTURI https://github.com/kilasuit/poshfunctions/
+
+.ICONURI 
+
+.EXTERNALMODULEDEPENDENCIES 
+
+.REQUIREDSCRIPTS 
+
+.EXTERNALSCRIPTDEPENDENCIES 
+
+.RELEASENOTES Released to PowerShell Gallery and updated with the latest Win10 RSAT Update 
+
+
+#>
+
+<# 
+
+.DESCRIPTION 
+ Installs RSAT Tools for Windows 10 
+
+#>
 function Install-Win10RSATTools {
 <#
 .Synopsis
@@ -9,11 +46,11 @@ function Install-Win10RSATTools {
    Install-Win10RSATTools
    #>
 
-#Requires -Version 5.0
+#Requires -Version 5.0 -RunAsAdministrator
 [Cmdletbinding()]
 param()
-        $x86 = 'https://download.microsoft.com/download/1/D/8/1D8B5022-5477-4B9A-8104-6A71FF9D98AB/WindowsTH-KB2693643-x86.msu'
-        $x64 = 'https://download.microsoft.com/download/1/D/8/1D8B5022-5477-4B9A-8104-6A71FF9D98AB/WindowsTH-KB2693643-x64.msu'
+        $x86 = 'https://download.microsoft.com/download/1/D/8/1D8B5022-5477-4B9A-8104-6A71FF9D98AB/WindowsTH-RSAT_WS2016-x86.msu'
+        $x64 = 'https://download.microsoft.com/download/1/D/8/1D8B5022-5477-4B9A-8104-6A71FF9D98AB/WindowsTH-RSAT_WS2016-x64.msu'
 
     switch ($env:PROCESSOR_ARCHITECTURE)
     {
@@ -21,20 +58,23 @@ param()
         'AMD64' {$version = $x64}
     }
 
-    $Request = [System.Net.WebRequest]::Create($version)
-    $Request.Timeout = "100000000"
-    $URL = $Request.GetResponse()
-    $Filename = $URL.ResponseUri.OriginalString.Split("/")[-1]
-    $url.close()
-    $WC = New-Object System.Net.WebClient
-    $WC.DownloadFile($version,"$env:TEMP\$Filename")
-    $WC.Dispose()
+    Write-Verbose -Message "OS Version is $env:PROCESSOR_ARCHITECTURE"
+    Write-Verbose -Message "Now Downloading RSAT Tools installer"
 
-    wusa.exe $env:TEMP\$Filename /quiet
-
-    Start-Sleep 80
-    Remove-Item "$env:TEMP\$Filename"
+    $Filename = $version.Split('/')[-1]
+    Invoke-WebRequest -Uri $version -UseBasicParsing -OutFile "$env:TEMP\$Filename" 
     
+    Write-Verbose -Message "Starting the Windows Update Service to install the RSAT Tools "
+    
+    Start-Process -FilePath wusa.exe -ArgumentList "$env:TEMP\$Filename /quiet" -Wait -Verbose
+    
+    Write-Verbose -Message "RSAT Tools are now be installed"
+    
+    Remove-Item "$env:TEMP\$Filename" -Verbose
+    
+    Write-Verbose -Message "Script Cleanup complete"
+    
+    Write-Verbose -Message "Remote Administration"
 }
 
 Install-Win10RSATTools -Verbose
