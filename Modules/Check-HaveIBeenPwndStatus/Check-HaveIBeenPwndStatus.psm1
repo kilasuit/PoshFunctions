@@ -13,6 +13,7 @@
 		[Parameter(Mandatory=$true, Position=1)]
 		[string] $Account
     )
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 Try
 {$output = Invoke-RestMethod -Method get -Uri "https://haveibeenpwned.com/api/v2/breachedaccount/$account"}
