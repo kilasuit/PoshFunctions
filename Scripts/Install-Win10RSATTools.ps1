@@ -54,15 +54,23 @@ param()
     Write-Verbose -Message "Now Downloading RSAT Tools installer"
 
     $Filename = $version.Split('/')[-1]
-    Invoke-WebRequest -Uri $version -UseBasicParsing -OutFile "$env:TEMP\$Filename" 
+    $OutputFile = "$env:TEMP\$Filename"
+
+    $DotNetDownloader = New-Object System.Net.WebClient
+    if ($DotNetDownloader -and $DotNetDownloader.DownloadFile) {
+        $DotNetDownloader.DownloadFile($version, $OutputFile)
+    }
+    else {
+        Invoke-WebRequest -Uri $version -UseBasicParsing -OutFile "$OutputFile" 
+    }
     
     Write-Verbose -Message "Starting the Windows Update Service to install the RSAT Tools "
     
-    Start-Process -FilePath wusa.exe -ArgumentList "$env:TEMP\$Filename /quiet" -Wait -Verbose
+    Start-Process -FilePath wusa.exe -ArgumentList "$OutputFile /quiet" -Wait -Verbose
     
     Write-Verbose -Message "RSAT Tools are now be installed"
     
-    Remove-Item "$env:TEMP\$Filename" -Verbose
+    Remove-Item $OutputFile -Verbose
     
     Write-Verbose -Message "Script Cleanup complete"
     
